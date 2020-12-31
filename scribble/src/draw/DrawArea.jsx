@@ -6,7 +6,7 @@ const SERVER = "http://localhost:8080"
 
 var socket = socketClient(SERVER);
 socket.on('connection', () => {
-  console.log(`I'm connected with the back-end`);
+  console.log(`Connected with the backend`);
 });
 
 class DrawArea extends Component {
@@ -23,12 +23,23 @@ class DrawArea extends Component {
     this.handleMouseUp = this.handleMouseUp.bind(this);
   }
 
+  // Ctrl-Z undo previous line
+  undo = e => {
+    if (e.ctrlKey && e.keyCode === 90) {
+      this.setState(prevState => ({
+        lines: prevState.lines.pop()
+      }))
+    }
+  }
+
   componentDidMount() {
     document.addEventListener("mouseup", this.handleMouseUp);
+    document.addEventListener("keydown", this.undo);
   }
 
   componentWillUnmount() {
     document.removeEventListener("mouseup", this.handleMouseUp);
+    document.addEventListener("keydown", this.undo);
   }
 
   handleMouseDown(mouseEvent) {
