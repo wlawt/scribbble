@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { List, Map, update } from 'immutable'
 
 import socketClient from "socket.io-client";
-const SERVER = "http://localhost:8080"
 
+const SERVER = "http://localhost:8080"
 var socket = socketClient(SERVER);
 socket.on('connection', () => {
   console.log(`Connected with the backend`);
@@ -49,13 +49,13 @@ class DrawArea extends Component {
     console.log(updatedLines)
     //console.log(List.isList(List(prevLines)))
 
-    this.setState(prevState => ({
+    /* this.setState(prevState => ({
       lines: prevState.lines.concat(updatedLines)
-    }))
-    /* this.setState({
+    })) */
+    this.setState({
       lines: updatedLines
-    }) */
-    //console.log(Array.isArray(JSON.parse(prevLines)))
+    })
+
     /* if (this.state.lines.isEmpty() && prevLines !== null) {
       console.log("running")
       this.setState(prevState => ({
